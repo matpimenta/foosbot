@@ -1,6 +1,5 @@
 name: OC foosbot
 description: OpenCredo's foosbot
-background: resources/background.png
 config:
   - name: LOG_LEVEL
     friendly_name: Severity level to show for logging.
@@ -11,5 +10,3 @@ config:
     info: This is an secret option
     type: secret
     default: not secret though
-screenshots:
-  - screenshot: resources/screenshot1.png
