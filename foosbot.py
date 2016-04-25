@@ -11,7 +11,6 @@ import sys
 import yaml
 import datetime
 
-
 config = yaml.load(open('config.yaml'))
 slack = slacker.Slacker(config['slacktoken'])
 
