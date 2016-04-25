@@ -10,9 +10,11 @@ import time
 import sys
 import yaml
 import datetime
+import os
 
 config = yaml.load(open('config.yaml'))
-slack = slacker.Slacker(config['slacktoken'])
+slack_token = os.getenv("SLACK_TOKEN", "")
+slack = slacker.Slacker(slack_token)
 
 
 def getniceuser(users, n):
