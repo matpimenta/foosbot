@@ -3,28 +3,31 @@ import ranking
 import numpy
 import collections
 import datetime
-
+import simples3
 
 _dbfile = 'foosdb.pickle'
 _dbhandle = None
 
+def _gets3conn():
+    return simples3.S3Bucket(os.environ['S3_BUCKET'],access_key=os.environ['AWS_ACCESS_KEY'],secret_key=os.environ['AWS_SECRET_KEY'],base_url='https://' + os.environ['S3_BUCKET'] + '.s3.amazonaws.com')
 
 def _getdb():
     global _dbhandle
     if _dbhandle is None:
         try:
-            _dbhandle = pickle.load(open(_dbfile))
+            _s3db = _gets3conn().get(_dbfile)
+            _dbhandle = pickle.load(_s3db.read())
         except:
             print "Unable to load database, creating new one"
             _dbhandle = _newdb()
     return _dbhandle
 
-
 def _commitback():
     if _dbhandle is None:
         raise Exception("Handle is None?")
-    pickle.dump(_dbhandle, open(_dbfile, 'w'))
-
+    f = open(_dbfile, 'rw')
+    pickle.dump(_dbhandle, f)
+    _gets3conn().put(_dbfile, f.read())
 
 def _newdb():
     return {'matches': {}}
