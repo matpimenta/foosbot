@@ -3,3 +3,4 @@ websocket-client
 PyYAML
 numpy
 theano
+simples3

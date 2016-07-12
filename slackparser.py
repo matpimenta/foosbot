@@ -81,7 +81,7 @@ def processSubmit(args):
 
     except Exception as e:
         print str(e)
-        return simpleResp("I'm sorry I didn't understand that")
+        return simpleResp("I'm sorry I didn't understand that" + str(e))
 
 
 def mangleit(x, iseq):
